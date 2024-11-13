@@ -7,13 +7,15 @@ app.use(express.json())
 
 const user  = []
 
-app.post('/users', (req, res) => {
+app.post('/user', (req, res) => {
   const {title} = req.body()
+
+
 
   // age user ka title na ai to ya condition follow ho.
   if(!title){
     res.status(400).json({
-      message : 'title is not requird'
+      message : 'title is requird'
     })
     return;
   }
@@ -43,9 +45,9 @@ app.get('/', (req, res) => {
   res.send('hello world')
 })
   
-// app.get('/about', (req, res) => {
-//   res.send('Hello farhan!')
-// })
+app.get('/about', (req, res) => {
+  res.send('Hello farhan!')
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
