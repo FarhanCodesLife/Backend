@@ -1,41 +1,52 @@
-import express from 'express';
-const app = express();
-const port = 3000;
+import express from 'express'
+const app = express()
+const port = 3000
 
-// Middleware
-app.use(express.json());
+// midlewear 
+app.use(express.json())
 
-const user = [];
+const user  = []
 
-// POST route to add a user
 app.post('/users', (req, res) => {
-  const { title } = req.body;  // Fixed the way req.body is accessed
+  const {title} = req.body()
 
-  // Condition to check if title is provided
-  if (!title) {
+  // age user ka title na ai to ya condition follow ho.
+  if(!title){
     res.status(400).json({
-      message: 'Title is required' // Corrected the message
-    });
+      message : 'title is not requird'
+    })
     return;
   }
 
-  // Add data to the user array
-  user.push({ title });
+  // user ma data add kra na ka liya
+  user.push({
+    title : title
+  })
 
-  // Send response
+  // responce bhajna ka liya 
   res.status(201).json({
-    message: 'Data added successfully',
-    data: user
-  });
-});
+    message : 'data add succesfully',
+    data : user
+  })
+})
 
-// GET route
+
+
+// req.param()
+// id get krna k a liya 
+// id ka zrya api create hogi 
+
+
+// thunderclint
+
 app.get('/', (req, res) => {
-  res.send( user);
+  res.send('hello world')
+})
+  
+// app.get('/about', (req, res) => {
+//   res.send('Hello farhan!')
+// })
 
-});
-
-// Start the server
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+  console.log(`Example app listening on port ${port}`)
+})
