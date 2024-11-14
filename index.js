@@ -59,6 +59,7 @@ const port = 3000
 
 app.use(express.json())
 
+const user  = []
 
 app.get('/' ,(req,res)=>{
   res.send('hello farhan')
@@ -74,13 +75,15 @@ app.post('/user',(req,res)=>{
     )
     return
   }
-  res.status(200).json(
+  user.push(name)
+  res.status(201).json(
     {
       masage:'succesfully response',
-      name
+      user
 
     }
   )
+
 
 })
 
