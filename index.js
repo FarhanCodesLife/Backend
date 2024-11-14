@@ -8,15 +8,15 @@ const user = [
   {
     data: {
       id: 1,
-      name: "John Doe",
-      email: "john@example.com",
+      name: "farhan",
+      email: "farhan@example.com",
     },
   },
   {
     data: {
       id: 2,
-      name: "Jane Doe",
-      email: "jane@example.com",
+      name: "farooq",
+      email: "farooq@example.com",
     },
   },
 ]
@@ -24,17 +24,13 @@ app.get('/',(req,res)=>{
   res.send('hello world')
   
 })
-
 app.post('/user',(req,res)=>{
-  const{name,id}=req.body;
+  const{name,id,email}=req.body;
   res.status(201).json({
    user
   })
-  user.push({data:{id,name}})
-
+  user.push({data:{id,name,email}})
 })
-
-
 app.get('/user/:id',(req,res)=>{
   const {id} = req.params
   const index = user.findIndex((item)=>item.data.id === +id)
