@@ -67,6 +67,7 @@ app.get('/' ,(req,res)=>{
 
 app.post('/user',(req,res)=>{
   const {name} = req.body;
+  const {id} = req.body;
   if(!name){
     res.status(400).json(
       {
@@ -75,7 +76,10 @@ app.post('/user',(req,res)=>{
     )
     return
   }
-  user.push(name)
+
+  user.push({name},{id})
+
+  
   res.status(201).json(
     {
       masage:'succesfully response',
@@ -85,7 +89,51 @@ app.post('/user',(req,res)=>{
   )
 
 
+
+
+
+
+
+
+
 })
+
+
+
+app.get("/user/:id", (req, res) => {
+  const { id } = req.params;
+
+  const index = user.findIndex((item) => item.id === +id);
+
+  if (index === -1) {
+    res.status(404).json({
+      message: "user not found",
+    });
+    return;
+  }
+
+  res.status(200).json({
+    data: user[index],
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.listen(port,()=>{
   console.log('server is running on port 3000')
