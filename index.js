@@ -1,149 +1,59 @@
-// import express from 'express';
-// const app = express();
-// const port = 3000;
-
-// // Middleware
-// app.use(express.json());
-
-// const user = [];
-
-// // POST route to add a user
-// app.post('/users', (req, res) => {
-//   const { title } = req.body;  // Fixed the way req.body is accessed
-
-//   // Condition to check if title is provided
-//   if (!title) {
-//     res.status(400).json({
-//       message: 'Title is required' // Corrected the message
-//     });
-//     return;
-//   }
-
-//   // Add data to the user array
-//   user.push({ title });
-
-//   // Send response
-//   res.status(201).json({
-//     message: 'Data added successfully',
-//     data: user
-//   });
-// });
-
-// // GET route
-// app.get('/', (req, res) => {
-//   res.send( user);
-
-// });
-
-
-
-// // Start the server
-// app.listen(port, () => {
-//   console.log(`Example app listening on port ${port}`);
-// });
-
-
-
-
-
-
-
-
-
-
-
 import express from "express";
 const app = express()
 const port = 3000
 
-
 app.use(express.json())
 
-const user  = []
-
-app.get('/' ,(req,res)=>{
-  res.send('hello farhan')
+const user = [
+  {
+    data: {
+      id: 1,
+      name: "John Doe",
+      email: "john@example.com",
+    },
+  },
+  {
+    data: {
+      id: 2,
+      name: "Jane Doe",
+      email: "jane@example.com",
+    },
+  },
+]
+app.get('/',(req,res)=>{
+  res.send('hello world')
+  
 })
 
 app.post('/user',(req,res)=>{
-  const {name} = req.body;
-  const {id} = req.body;
-  if(!name){
-    res.status(400).json(
-      {
-        message:'name is required',
-      }
-    )
-    return
-  }
-
-  user.push({name},{id})
-
-  
-  res.status(201).json(
-    {
-      masage:'succesfully response',
-      user
-
-    }
-  )
-
-
-
-
-
-
-
-
+  const{name,id}=req.body;
+  res.status(201).json({
+   user
+  })
+  user.push({data:{id,name}})
 
 })
 
 
-
-app.get("/user/:id", (req, res) => {
-  const { id } = req.params;
-
-  const index = user.findIndex((item) => item.id === +id);
+app.get('/user/:id',(req,res)=>{
+  const {id} = req.params
+  const index = user.findIndex((item)=>item.data.id === +id)
 
   if (index === -1) {
     res.status(404).json({
-      message: "user not found",
+      message: "User not found",
     });
-    return;
+    return
   }
-
+  
   res.status(200).json({
-    data: user[index],
-  });
-});
+    data:user[index].data
+  })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+})
 
 
 
 app.listen(port,()=>{
-  console.log('server is running on port 3000')
+  console.log(`server is running on port ${port}`)
 })
-
-
-
-
-
-
-
-
-
