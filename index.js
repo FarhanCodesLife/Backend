@@ -12,7 +12,24 @@ app.get('/',(req,res)=>{
 
 app.get('/about',(req,res)=>{
   res.send('hello about')
-  
+})
+const users =[]
+
+app.post('/user',(req,res)=>{
+  const {username} = req.body;
+  users.push({
+    username
+  })
+    res.status(201).json(
+    {users}
+  )
+
+})
+
+app.post('/user/:id',(req,res)=>{
+  const {id} = req.params;
+
+
 })
 
 
