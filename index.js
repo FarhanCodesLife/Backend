@@ -9,10 +9,7 @@ app.get('/',(req,res)=>{
 
 })
 const users =[
-  {data:{id:1,name:'farhan'}},
-  {data:{id:2,name:'kkkhk'}},
-  {data:{id:3,name:'jjgfjgfohn'}},
-  {data:{id:4,name:'jogggyhn'}},
+ 
 ]
 app.use((req,res,next)=>{
   next()
@@ -23,12 +20,18 @@ app.get('/about',(req,res)=>{
   res.send('hello about')
 })
 
+app.get('/users',(req,res)=>{
+  res.json(users)
+})
+
 
 app.post('/user',(req,res)=>{
   const {username} = req.body;
-  users.push({
-    username
-  })
+  users.push({data:{
+    username:username,
+    id:users.length+1
+    
+  }})
     res.status(201).json(
     {users}
   )
@@ -44,8 +47,41 @@ app.post('/user/:id',(req,res)=>{
     data:users[index].data
   })
 
-  
+})
 
+
+
+
+app.delete('/user/:id',(req,res)=>{
+  const{id}= req.params;
+  const index = users.findIndex(item => item.data.id === +id)
+
+  if(index === -1){
+    res.status(404).json({message: 'User not found'})
+    return
+  }
+  users.splice(index,1)
+  res.status(200).json({
+    message:'user deleted',
+    users
+  })
+})
+
+
+app.put('/user/:id',(req,res)=>{
+  const{id}= req.params;
+
+  const index = users.findIndex(item => item.data.id === +id)
+  if(index === -1){
+    res.status(404).json({message: 'User not found'})
+    return
+    }
+    const {username}= req.body;
+    users[index].data.username = username
+    res.status(200).json({
+      message:'user updated',
+      users
+      })
 
 })
 
