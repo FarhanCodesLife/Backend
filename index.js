@@ -8,9 +8,7 @@ app.get('/',(req,res)=>{
   res.send('hello world')
 
 })
-const users =[
- 
-]
+const users =[]
 app.use((req,res,next)=>{
   next()
 
