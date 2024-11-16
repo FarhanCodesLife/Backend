@@ -1,18 +1,41 @@
 import express from 'express'
+import cors from 'cors'
 const app = express()
 const port = 3000
 
-app.use(express.json())
+
+
+// Middleware
+app.use(cors()); // Enables CORS
+app.use(express.json()); // Parses JSON payloads
+
+
+
+
 
 app.get('/',(req,res)=>{
   res.send('hello world')
 
 })
-const users =[]
-app.use((req,res,next)=>{
-  next()
+const users =[
 
-})
+  
+      
+        {
+            "data": {
+                "username": "raheem",
+                "id": 3
+            }
+        },
+        {
+            "data": {
+                "username": "raheem",
+                "id": 4
+            }
+        }
+    ]
+
+
 
 app.get('/about',(req,res)=>{
   res.send('hello about')
@@ -28,8 +51,8 @@ app.post('/user',(req,res)=>{
   users.push({data:{
     username:username,
     id:users.length+1
-    
   }})
+
     res.status(201).json(
     {users}
   )
@@ -60,7 +83,6 @@ app.delete('/user/:id',(req,res)=>{
   }
   users.splice(index,1)
   res.status(200).json({
-    message:'user deleted',
     users
   })
 })
