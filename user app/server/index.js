@@ -48,6 +48,8 @@ app.get('/users',(req,res)=>{
 })
 
 
+
+
 app.post('/user',(req,res)=>{
   const {username} = req.body;
   users.push({data:{
@@ -60,7 +62,7 @@ app.post('/user',(req,res)=>{
   )
 
 })
-
+// single user 
 app.post('/user/:id',(req,res)=>{
   const {id} = req.params;  //2
   const index = users.findIndex((items)=>items.data.id === +id)

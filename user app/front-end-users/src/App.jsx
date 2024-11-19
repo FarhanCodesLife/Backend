@@ -16,7 +16,7 @@ const App = () => {
         console.log(error);}
     }
     facthdata()
-  },[user])
+  },[])
 
 
 async function deleteuser(id) {
@@ -26,6 +26,22 @@ async function deleteuser(id) {
    let response = await axios('http://localhost:3000/users')
     setusers(response.data)
 
+
+}
+
+
+async function singleuser(id) {
+  console.log(id);
+  try {
+    
+    
+    let response = await axios.post(`http://localhost:3000/user/${id}`)
+    setusers(response.data)
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
 
 }
 
@@ -68,11 +84,11 @@ async function edituser(id) {
           <h1>id:{item.data.id}</h1>
           <button onClick={()=>{deleteuser(item.data.id)}}>delet</button>
           <button onClick={()=>{edituser(item.data.id)}}>edit</button>
+<button onClick={()=>{singleuser(item.data.id)}}>single user</button>
           </div>
           
         ))):(<h1>loading..</h1>)
     }
-
     </>
   )
 }
