@@ -18,21 +18,23 @@ app.get('/',(req,res)=>{
 
 })
 const users =[
-
-  
-      
         {
             "data": {
-                "username": "raheem",
+                "username": "farhan",
                 "id": 3
             }
         },
         {
-            "data": {
-                "username": "raheem",
-                "id": 4
-            }
+          "data": {
+              "username": "jawad",
+              "id": 4
+          }
+      },{
+        "data": {
+            "username": "subhan",
+            "id": 5
         }
+    }
     ]
 
 
