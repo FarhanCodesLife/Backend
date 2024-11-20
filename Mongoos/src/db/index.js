@@ -12,7 +12,7 @@ const connectDB = async () => {
 
     console.log("Connecting to MongoDB...");
     const connectionInstance = await mongoose.connect(
-      `mongodb+srv://farhansmit0318:@farhan0318@@cluster0.rqd3j.mongodb.net/prectice`
+      `${process.env.MONGO_URI}practice`
     );
 
     console.log(
