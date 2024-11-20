@@ -1,7 +1,17 @@
-import express from "express"
+import dotevn from "dotenv"
+dotevn.config()
 
+import express from "express"
+import todoroutes from "./src/routes/todos.routes.js"
+import connectDB from "./src/db/index.js"
 const app = express()
-const port = 3000
+const PORT = process.env.PORT
+
+
+
+app.use(express.json())
+
+
 
 app.get('/',(req,res)=>{
 res.send('hello world')
@@ -9,8 +19,19 @@ res.send('hello world')
 
 
 
+app.use("/api/v1",todoroutes)
 
-app.listen(port,()=>{
-    console.log('app is runing properly');
-    
+
+
+connectDB()
+.then(()=>{
+
+    app.listen(PORT,()=>{
+        console.log('db is runing properly');
+        
+    })
+})
+.catch((error)=>{
+console.log(error);
+
 })
