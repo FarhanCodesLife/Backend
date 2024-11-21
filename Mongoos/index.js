@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import connectDB from "./src/db/index.js"; // Ensure DB connection file
+import connectDB from "./src/db/index.js";
 import todoRoutes from "./src/routes/todos.routes.js";
 
 dotenv.config();
@@ -13,12 +13,11 @@ app.use(express.json());
 // Routes
 app.use("/api/v1", todoRoutes);
 
-// Test Endpoint
 app.get("/", (req, res) => {
   res.send("API is working");
 });
 
-// Connect to MongoDB and Start Server
+// MongoDB connection and server start
 connectDB()
   .then(() => {
     app.listen(process.env.PORT, () => {

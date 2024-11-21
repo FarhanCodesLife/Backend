@@ -17,6 +17,16 @@ import Todos from "../models/todos.models.js";
   }
 };
 
+// Get all todos
+export const getTodos = async (req, res) => {
+    try {
+      const todos = await Todos.find(); // Fetch all todos from the database
+      res.status(200).json({ success: true, todos });
+    } catch (error) {
+      res.status(500).json({ success: false, error: "Failed to fetch todos", details: error.message });
+    }
+  };
+
 // // Get all todos
 // export const getAllTodos = async (req, res) => {
 //   try {
