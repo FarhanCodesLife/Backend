@@ -1,0 +1,42 @@
+npm init -y
+npm install --save-dev nodemon
+npm install express dotenv mongoose
+
+pakage.json
+    {
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  }
+}
+
+
+
+todo-list/
+│
+├── index.js              
+├── src/
+│   ├── db/
+│   │   └── index.js      
+│   │
+│   ├── models/
+│   │   └── todo.models.js 
+│   │
+│   ├── routes/
+│   │   └── todos.routes.js \
+│   │
+│   ├── controllers/
+│       └── todos.controllers.js 
+│
+└── .env                  
+
+
+login mongodb 
+create project 
+    create cluster
+    create a uri 
+
+uri save in dotenv file
+
+npm run dev
