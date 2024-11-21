@@ -1,37 +1,26 @@
-import dotevn from "dotenv"
-dotevn.config()
+import dotenv from "dotenv";
+dotenv.config();
+import express from "express";
+import connectDB from "./src/db/index.js";
+import todosRoutes from "./src/routes/todos.routes.js";
 
-import express from "express"
-import todoroutes from "./src/routes/todos.routes.js"
-import connectDB from "./src/db/index.js"
-const app = express()
-const PORT = process.env.PORT
+const app = express();
 
+app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
-app.use(express.json())
-
-
-
-app.get('/',(req,res)=>{
-res.send('hello world')
-})
-
-
-
-app.use("/api/v2",todoroutes)
-
-
+// routes
+app.use("/api/v1", todosRoutes);
 
 connectDB()
-.then(()=>{
-
-    app.listen(PORT,()=>{
-        console.log('db is runing properly');
-        
-    })
-})
-.catch((error)=>{
-console.log(error);
-
-})
+  .then(() => {
+    app.listen(process.env.PORT, () => {
+      console.log(`⚙️  Server is running at port : ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("MONGO DB connection failed !!! ", err);
+  });
