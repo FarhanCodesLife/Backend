@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Todos from "../models/todos.models.js";
 
 // Add a todo
-export const addTodo = async (req, res) => {
+ const addTodo = async (req, res) => {
   const { title, description } = req.body;
 
   if (!title || !description) {
@@ -91,4 +91,4 @@ export const addTodo = async (req, res) => {
 
 // getAllTodos, getTodoById, deleteTodo, editTodo
 
-export { addTodo };
+export  { addTodo };
