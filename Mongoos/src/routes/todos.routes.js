@@ -4,7 +4,7 @@ import { addTodo,getTodos } from "../controlers/todos.controlers.js";
 const router = express.Router();
 
 router.post("/todo", addTodo);
-router.get("/", getTodos);
+router.get("/todos", getTodos);
 
 export default router;
 
