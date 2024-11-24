@@ -34,7 +34,7 @@ const todoschema = new schema({
 
     },
     description:{
-        type:string,
+        type:String,
         required:true,
 
     }

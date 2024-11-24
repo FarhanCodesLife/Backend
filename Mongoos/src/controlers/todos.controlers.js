@@ -20,12 +20,44 @@ import Todos from "../models/todos.models.js";
 // Get all todos
 export const getTodos = async (req, res) => {
     try {
-      const todos = await Todos.find(); // Fetch all todos from the database
+      const todos = await Todos.find({}); // Fetch all todos from the database
       res.status(200).json({ success: true, todos });
     } catch (error) {
       res.status(500).json({ success: false, error: "Failed to fetch todos", details: error.message });
     }
   };
+
+
+
+//   get a single todo
+
+
+
+export const getasingletoodo = async (req,res)=>{
+    const {id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ error: "Invalid ID" });
+          }
+    
+          try {
+            const todo = await Todos.findById(id)
+
+            if(!todo){
+                res.status(400).json({
+                    message:"No todo found!"
+                })
+                return;
+            }
+            res.status(200).json(todo)
+           
+          } 
+          catch (error) {
+            res.status(404).json({
+                message:"Error ==>",error
+            })
+          }
+        }
+
 
 // // Get all todos
 // export const getAllTodos = async (req, res) => {
