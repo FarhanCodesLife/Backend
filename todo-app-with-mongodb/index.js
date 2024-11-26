@@ -1,7 +1,7 @@
 import express from "express"
 import dotenv from "dotenv"
 dotenv.config()
-import { addUser } from "./controlers/controler.js"
+import { addUser, AllUser } from "./controlers/controler.js"
 import connectDB from "./config/index.js"
 
 
@@ -10,6 +10,8 @@ const app = express()
 app.use(express.json())
 
 app.use("/api/v1",addUser)
+// app.use("/api/v1",deleteUser)
+// app.use("/api/v1",editUser)
 
 app.get("/",(req,res)=>{
     res.send('hello user')

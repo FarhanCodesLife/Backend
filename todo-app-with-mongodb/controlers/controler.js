@@ -1,7 +1,6 @@
 import User from "../module/module.js"
-import mongoose from "mongoose";
 
- const addUser = async (req,res)=>{
+const addUser = async (req,res)=>{
      const {firstname, lastname, email, password} = req.body
      const allemail = await User.findOne({email})
      if(!firstname || !lastname||!email||!password){
@@ -41,4 +40,24 @@ import mongoose from "mongoose";
 
 }
 
-export  { addUser };
+
+
+const AllUser = async (req,res)=>{
+    
+    try {
+        const AllUsers = await User.find({})
+       
+       res.status(200).json({
+           AllUsers
+       })
+   } catch (error) {
+       res.status(500).json({
+           massage: "users not Found"
+       })
+   }
+
+
+
+}
+
+export  { addUser,AllUser };
