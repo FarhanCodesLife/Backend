@@ -45,10 +45,10 @@ const addUser = async (req,res)=>{
 const AllUser = async (req,res)=>{
     
     try {
-        const AllUsers = await User.find({})
+        const Users = await User.find({})
        
        res.status(200).json({
-           AllUsers
+           Users
        })
    } catch (error) {
        res.status(500).json({
