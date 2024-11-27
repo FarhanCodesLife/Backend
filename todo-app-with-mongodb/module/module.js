@@ -20,6 +20,7 @@ const userSchema = new schema({
     password:{
         type:String,
         required:true,
+        select:false
     },
 
 }

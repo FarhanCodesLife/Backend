@@ -3,10 +3,12 @@ import dotenv from "dotenv";
 dotenv.config();
 import { AllUser, addUser } from "./controlers/controler.js";
 import connectDB from "./config/index.js";
-import cros from ""
+import cors from "cors"
 
 const app = express();
 
+
+app.use(cors())
 app.use(express.json());
 
 app.use("/user", addUser);
