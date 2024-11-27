@@ -1,29 +1,31 @@
 import express from "express";
 import dotenv from "dotenv";
-dotenv.config();
-import { AllUser, addUser } from "./controlers/controler.js";
+import cors from "cors";
 import connectDB from "./config/index.js";
-import cors from "cors"
+import userroutes from "./routes/route.js"
+dotenv.config();
 
 const app = express();
 
-
-app.use(cors())
+// Middleware
+app.use(cors());
 app.use(express.json());
 
-app.use("/user", addUser);
-app.use("/users", AllUser);
+// Routes
+app.use("/api/v1", userroutes); // Add a new user
 
+// Home Route
 app.get("/", (req, res) => {
-  res.send("hello user");
+  res.send("Hello, welcome to the user API!");
 });
 
+// Database Connection and Server Startup
 connectDB()
   .then(() => {
     app.listen(process.env.PORT, () => {
-      console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
+      console.log(`⚙️ Server is running at port: ${process.env.PORT}`);
     });
   })
   .catch((err) => {
-    console.log("MONGO DB connection failed !!!", err);
+    console.error("❌ MongoDB connection failed:", err);
   });

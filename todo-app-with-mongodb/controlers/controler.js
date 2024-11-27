@@ -1,90 +1,102 @@
+import mongoose from "mongoose"; // Fixed `mangoose` typo
 import User from "../module/module.js";
 
-
+// Add User
 const addUser = async (req, res) => {
   const { firstname, lastname, email, password } = req.body;
-  const allemail = await User.findOne({ email });
+  try{
+
+      const existingUser = await User.findOne({ email });
+      
+      if (existingUser) {
+          return res.status(400).json({
+              message: "Email is already in use!",
+            });
+        }
+    }catch(error){
+        console.log("error in email");
+        
+
+    }
+
   if (!firstname || !lastname || !email || !password) {
-    res.status(500).json({
-      massage: "farhna pagl ha",
+    return res.status(400).json({
+      message: "All fields are required!",
     });
-    return;
   }
-  if (allemail) {
-    res.status(500).json({
-      massage: "email is alredy asses",
-    });
-    return;
-  }
-  try {
-    const user = await User.create({
+
+    try {
+
+    const newUser = await User.create({
       firstname,
       lastname,
       email,
       password,
     });
+
     res.status(201).json({
-      massage: "User add Succsesfuly",
-      user,
+      message: "User added successfully!",
+      user: {
+        id: newUser._id,
+        firstname: newUser.firstname,
+        lastname: newUser.lastname,
+        email: newUser.email,
+      },
     });
   } catch (error) {
     res.status(500).json({
-      massage: "user not added",
+      message: "Failed to add user.",
     });
   }
 };
 
-
-
-
+// Get All Users
 const AllUser = async (req, res) => {
   try {
-    const Users = await User.find({});
+    const users = await User.find({});
     res.status(200).json({
-      Users,
+      users,
     });
   } catch (error) {
     res.status(500).json({
-      massage: "users not Found",
+      message: "Failed to fetch users.",
     });
   }
 };
 
+// Delete User
+const Deleteuser = async (req, res) => {
+  const { id } = req.params;
 
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({
+      message: "Invalid user ID.",
+    });
+  }
 
+  try {
+    const deletedUser = await User.findByIdAndDelete(id);
 
-const DeleteTodo = async (req, res) => {
-    const {id} = req.params
-    if(!mangoose.Types.ObjectId.isValid(id)){
-        return res.status(400).json({
-            massage:"invalid id"
-        })
-    
-    }
-
-    try {
-      const deleteUser  = await User.findByIdAndDelete(id);
-      
-      if(!deleteUser){
-        res.status(400).json({
-            massage:"User Not Found"
-        })
-        return
-      }
-      res.status(200).json({
-        massage:"User Deleted Successfuly",
-        deleteUser
-      })
-
-
-
-
-    } catch (error) {
-      res.status(500).json({
-        massage: "Faild to delete users ",
+    if (!deletedUser) {
+      return res.status(404).json({
+        message: "User not found.",
       });
     }
-  };
-  
-  export { AllUser, addUser, DeleteTodo };
-  
+
+    res.status(200).json({
+      message: "User deleted successfully!",
+      user: {
+        id: deletedUser._id,
+        firstname: deletedUser.firstname,
+        lastname: deletedUser.lastname,
+        email: deletedUser.email,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to delete user.",
+    });
+  }
+};
+
+export { AllUser, addUser, Deleteuser };
