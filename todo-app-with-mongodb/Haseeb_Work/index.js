@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 dotenv.config();
 import { AllUser, addUser } from "./controlers/controler.js";
 import connectDB from "./config/index.js";
-import cros from ""
 
 const app = express();
 

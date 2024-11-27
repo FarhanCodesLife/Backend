@@ -50,41 +50,22 @@ const AllUser = async (req, res) => {
   }
 };
 
+export { AllUser, addUser };
 
 
 
-const DeleteTodo = async (req, res) => {
-    const {id} = req.params
-    if(!mangoose.Types.ObjectId.isValid(id)){
-        return res.status(400).json({
-            massage:"invalid id"
-        })
-    
-    }
-
+const AllUser = async (req, res) => {
     try {
-      const deleteUser  = await User.findByIdAndDelete(id);
-      
-      if(!deleteUser){
-        res.status(400).json({
-            massage:"User Not Found"
-        })
-        return
-      }
+      const Users = await User.find({});
       res.status(200).json({
-        massage:"User Deleted Successfuly",
-        deleteUser
-      })
-
-
-
-
+        Users,
+      });
     } catch (error) {
       res.status(500).json({
-        massage: "Faild to delete users ",
+        massage: "users not Found",
       });
     }
   };
   
-  export { AllUser, addUser, DeleteTodo };
+  export { AllUser, addUser };
   
