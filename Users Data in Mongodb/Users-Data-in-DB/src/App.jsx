@@ -33,20 +33,33 @@ const DeletUser = async (id)=>{
     
   } catch (error) {
     console.log(error);
-    
-    
   }
 
 }
 
 const EditUser = async (item,id)=>{
 const newfirstname = prompt("update first name",item.firstname)
+const newlastname = prompt("update last name",item.lastname)
+const newemail = prompt("update email",item.email)
+const newpassword = prompt("update password",item.password)
 const updateuserinfo = {
   firstname:newfirstname,
-
+  lastname:newlastname,
+  email:newemail,
+  password:newpassword,
 }
-  const edituser = await axios.put(`http://localhost:500/api/vi/user/${id}`)
+try{
+
+  const edituser = await axios.put(`http://localhost:5000/api/v1/user/${id}`,updateuserinfo)
+
+  console.log(edituser.data); 
+  alert("user successfuly edit")   
+  const response = await axios.get("http://localhost:5000/api/v1/users");
+  setUsers(response.data.users);
   
+}catch(error){
+  console.log(error);
+}
 
 }
 

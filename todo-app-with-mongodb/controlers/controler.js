@@ -99,4 +99,34 @@ const Deleteuser = async (req, res) => {
   }
 };
 
-export { AllUser, addUser, Deleteuser };
+
+const EditUser = async (req,res)=>{
+  const {id }= req.params
+const {firstname,lastname,email,password} = req.body
+  if(!mongoose.Types.ObjectId.isValid(id)){
+    res.status(400).json({
+      massage : "invalid ID"
+    })
+    return
+  }
+  if(!firstname||!lastname || !email ||!password){
+    return res.status(404).json({
+      massage :"all info "
+    })
+  }
+  try {
+    const edituser =await User.findByIdAndUpdate(id,{firstname,lastname,email,password},{new:true})
+res.status(200).json({
+  masage:"Edit Users Succsessfuly",
+  edituser
+})
+  } catch (error) {
+    res.status(404).json({
+      massage :"Failed to Edit User"
+    })
+    
+  }
+
+}
+
+export { AllUser, addUser, Deleteuser ,EditUser};
