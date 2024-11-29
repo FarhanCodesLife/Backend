@@ -6,6 +6,8 @@ import cors from "cors";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import connectDB from "./src/db/index.js";
+import { generateAccessToken, generateRefreshToken } from "./src/controllers/users.controllers.js";
+import { URLSearchParams } from "url";
 
 const app = express();
 
@@ -48,6 +50,8 @@ app.post('/checkpassword', async (req,res)=>{
 
    const checkpassword = await bcrypt.compare(password,bcryptPassword)
 
+   const jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsQGdtYWlsLmNvbSIsImlhdCI6MTczMjkxOTEzMiwiZXhwIjoxNzMyOTQwNzMyfQ.AlFIuQ8RhHiUwvAh5m9Ur4fIqRHtW1s1p78gkFCuNTM"
+
    if(!checkpassword) return res.status(404).json({
     massage:"password not match"
    })
@@ -60,11 +64,20 @@ app.post('/checkpassword', async (req,res)=>{
 })
 
 
+app.post('/addjwt',(req,res)=>{
+    const {email,password} = req.body
 
-const encryptP = "$2b$10$s5q2yY18eQE10n59CPnWUO48YGpweG09ce5V/uXKgZlJzS2Cp.Jr6";
+    const user ={
+        email:email,
+        password:password,
+    }
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hYmR1bGxhaDIwMzdAZ21haWwuY29tIiwiaWF0IjoxNzMyODU3NTM4fQ.QqjHvu41SHVI4wiCBwZDskXRLQE8LkJiNTNZBdSqOjI";
+res.status(200).json({access:generateAccessToken(user),
+refresh:generateRefreshToken(user)}
+)
+
+})
+
 
 
 connectDB()

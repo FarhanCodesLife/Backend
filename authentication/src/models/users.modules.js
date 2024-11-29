@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 // Declare the Schema of the Mongo model
-var userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
    
     email:{
         type:String,
@@ -14,4 +14,4 @@ var userSchema = new mongoose.Schema({
 });
 
 //Export the model
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('Users', userSchema);
