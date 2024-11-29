@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 
 app.post("/bcryptPassword" , async (req,res)=>{
 const {email,password} = req.body
-const ket = "farhanhanif"
+const key = 10
 
 const bcryptPassword = await bcrypt.hash(password,key)
 if(!bcryptPassword) return res.status(404).json({
@@ -37,6 +37,25 @@ const user ={
 }
 
 
+
+})
+
+const bcryptPassword = "$2b$10$wRKE6dnhUCIqvr8qzpm2TeCOXFmFEG8BDvpW8u7EhQWzQNIkfNHSu"
+
+app.post('/checkpassword', async (req,res)=>{
+
+    const {password}= req.body
+
+   const checkpassword = await bcrypt.compare(password,bcryptPassword)
+
+   if(!checkpassword) return res.status(404).json({
+    massage:"password not match"
+   })
+   res.status(200).json({
+    massage:"password correct",
+    checkpassword
+
+   })
 
 })
 
