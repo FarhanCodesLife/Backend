@@ -30,3 +30,22 @@
 //     sameSite: 'Strict', // CSRF se bachne ke liye
 //     maxAge: 7 * 24 * 60 * 60 * 1000 // 7 din ki expiry
 // });
+
+
+
+// register user
+    //  req.body se email or password aayega
+    // email or password dono mojhodh he ya nhi condition chechk karege ge
+    // email ko check karege k alredy exixt to nhi he db me 
+    // password ko hash karke db me save karege
+    // response send karegi (succsessfuly register ho gya he)
+
+// login user
+    // req.body se email or password aayega
+    // email or password dono mojhodh he ya nhi condition lagaye ge
+    // email ko check karege k user exixt he ya nhi db me
+    // bcyrt k zarye password ko check karege k password correct he ya nhi 
+    // access token aur refresh token generate karege
+    // refresh token ko cookei parser me save karege
+    // response me access token aur refresh token send karege
+    // response send karegi (succsessfuly login ho gya he, or user ka object)
