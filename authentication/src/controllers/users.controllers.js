@@ -27,7 +27,15 @@ const generateRefreshToken = (user) =>{
 
 const loginUser =(req,res)=>{
     const {email,password} = req.body
+    if(!email||!password)return res.status(404).json({
+        massage:"please provide email and password"
+    })
+    const checkUser = Users.findOne({email:email})
+    if (checkUser)return res.status(404).json({
+        massage:"User not Found"
+    })
     
+
 
 }
 
