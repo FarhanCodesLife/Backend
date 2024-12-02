@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import Users from '../models/users.modules.js'
 import bcrypt from 'bcrypt'
+import { application } from 'express';
 
 const generateAccessToken = (user) =>{ 
     return jwt.sign({ email: user.email }, "farhan" , {expiresIn: '6h'});
@@ -42,9 +43,17 @@ if(!checkpassword)return res.status(404).json({
     massage:"password not match"
 })
 
+res.cookie("refreshToken",generateRefreshToken(checkUser),{
+    httpOnly: true, // JavaScript se access nahi ho sakta
+    secure: process.env.NODE_ENV === 'production', // Secure cookies in production
+    sameSite: 'Strict', // CSRF se bachne ke liye
+    maxAge: 7 * 24 * 60 * 60 * 1000 // 7 din ki expiry
+});
+
 res.status(200).json({
     massage:"Login successfuly",
     accessToken:generateAccessToken(checkUser),
+    refreshToken:generateRefreshToken(checkUser)
 })
 
 }
