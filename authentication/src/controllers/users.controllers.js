@@ -25,7 +25,7 @@ const generateRefreshToken = (user) =>{
 
  }
 
-const loginUser =(req,res)=>{
+const loginUser = async(req,res)=>{
     const {email,password} = req.body
     if(!email||!password)return res.status(404).json({
         massage:"please provide email and password"
@@ -34,10 +34,19 @@ const loginUser =(req,res)=>{
     if (checkUser)return res.status(404).json({
         massage:"User not Found"
     })
-    
 
+const checkpassword = await bcrypt.campare(password,checkUser.password)
+
+if(!checkpassword)return res.status(404).json({
+    massage:"password not match"
+})
+
+res.status(200).json({
+    massage:"Login successfuly",
+    accessToken:generateAccessToken(checkUser),
+})
 
 }
 
 
-export {generateAccessToken,generateRefreshToken,register}
+export {generateAccessToken,generateRefreshToken,register,loginUser}
