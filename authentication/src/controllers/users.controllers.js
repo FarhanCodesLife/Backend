@@ -25,5 +25,11 @@ const generateRefreshToken = (user) =>{
 
  }
 
+const loginUser =(req,res)=>{
+    const {email,password} = req.body
+    
+
+}
+
 
 export {generateAccessToken,generateRefreshToken,register}
