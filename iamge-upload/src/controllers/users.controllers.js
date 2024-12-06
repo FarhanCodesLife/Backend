@@ -98,14 +98,34 @@ res.status(200).json({
 
 
 const uploadimage = async (req,res)=>{
-    const {localpath} = req.file.path
-    if(!localpath)return res.status(404).json({
-        massage:"please provide image"
-    })
-    imageupload(localpath)
-    res.status(200).json({
-        massage:"image upload successfuly"
-    })
+    if (!req.file)
+        return res.status(400).json({
+          message: "no image file uploaded",
+        });
+    
+      try {
+        const uploadResult = await uploadImageToCloudinary(req.file.path);
+    
+        if (!uploadResult)
+          return res
+            .status(500)
+            .json({ message: "error occured while uploading image" });
+    
+        res.json({
+          message: "image uploaded successfully",
+          url: uploadResult,
+        });
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "error occured while uploading image" });
+      }
+    // if(!localpath)return res.status(404).json({
+    //     massage:"please provide image"
+    // })
+    // imageupload(localpath)
+    // res.status(200).json({
+    //     massage:"image upload successfuly"
+    // })
     
 }
 
