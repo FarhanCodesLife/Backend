@@ -2,6 +2,43 @@ import jwt from 'jsonwebtoken'
 import Users from '../models/users.modules.js'
 import bcrypt from 'bcrypt'
 import { application } from 'express';
+import fs from "fs";
+
+import { v2 as cloudinary } from 'cloudinary';
+
+
+cloudinary.config({ 
+    cloud_name: 'dwuc4qz3n', 
+    api_key: '237728971423496', 
+    api_secret: '8Q6ZLV2ouehlYs67BTGq86l2R98' // Click 'View API Keys' above to copy your API secret
+});
+
+// Upload an image
+const imageupload = async (localpath)=>{
+try {
+    const uploadResult = await cloudinary.uploader
+    .upload(
+        localpath, {
+            resource_type: 'auto',
+        }
+        
+    )
+    fs.unlinkSync(localpath);
+    console.log(uploadResult);
+    
+  
+    
+} catch (error) {
+    console.log(error);
+    fs.unlinkSync(localpath);
+
+
+    
+    
+}
+}
+
+
 
 const generateAccessToken = (user) =>{ 
     return jwt.sign({ email: user.email }, "farhan" , {expiresIn: '6h'});
@@ -59,4 +96,17 @@ res.status(200).json({
 }
 
 
-export {generateAccessToken,generateRefreshToken,register,loginUser}
+
+const uploadimage = async (req,res)=>{
+    const {localpath} = req.file.path
+    if(!localpath)return res.status(404).json({
+        massage:"please provide image"
+    })
+    imageupload(localpath)
+    res.status(200).json({
+        massage:"image upload successfuly"
+    })
+    
+}
+
+export {generateAccessToken,generateRefreshToken,register,loginUser ,uploadimage}
