@@ -1,0 +1,51 @@
+// npm init
+// npm i express mongoose jsonwebtoken dotenv cors cookie-parser bcrypt
+
+// module banane k liye === !mdbgum
+// moongo db connect  ==== !mdbc
+
+//  /signin k route pr sign in se jo password a raha he us ko bcrypt password me change karke db me save karwana honga 
+
+
+// /login k route per user ko longin karwate he phir email se token genrete karwate he  
+
+//  Agar user ka authentication successful hota hai, toh server ko Access Token aur Refresh Token generate karna padta hai.
+
+// Access Token... Yeh short-lived token hota hai jo client ko diya jata hai. Access token ko typically 15 minutes se lekar 1 hour tak ka time diya jata hai. Iska use client ko authenticated requests bhejne ke liye hota hai.
+// Refresh Token... Yeh long-lived token hota hai jo client ko diya jata hai, taki agar access token expire ho jaye, user ko dobara login na karna pade. Refresh token ka expiry time zyada hota hai (usually 7 din, 30 din, ya usse zyada).
+
+
+
+// const generateAccessToken = (users) =>{ 
+//     return jwt.sign({ email: users.email }, "apni marzi ka key" , {expiresIn: '6h'});
+// }
+// const generateRefreshToken = (user) =>{ 
+//     return jwt.sign({ email: user.email }, "apni marzi ka key" , {expiresIn: '7d'});
+// }
+
+
+// res.cookie('refreshToken', refreshToken, {
+//     httpOnly: true, // JavaScript se access nahi ho sakta
+//     secure: process.env.NODE_ENV === 'production', // Secure cookies in production
+//     sameSite: 'Strict', // CSRF se bachne ke liye
+//     maxAge: 7 * 24 * 60 * 60 * 1000 // 7 din ki expiry
+// });
+
+
+
+// register user
+    //  req.body se email or password aayega
+    // email or password dono mojhodh he ya nhi condition chechk karege ge
+    // email ko check karege k alredy exixt to nhi he db me 
+    // password ko hash karke db me save karege
+    // response send karegi (succsessfuly register ho gya he)
+
+// login user
+    // req.body se email or password aayega
+    // email or password dono mojhodh he ya nhi condition lagaye ge
+    // email ko check karege k user exixt he ya nhi db me
+    // bcyrt k zarye password ko check karege k password correct he ya nhi 
+    // access token aur refresh token generate karege
+    // refresh token ko cookei parser me save karege
+    // response me access token aur refresh token send karege
+    // response send karegi (succsessfuly login ho gya he, or user ka object)
