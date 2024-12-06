@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import Users from '../models/users.modules.js'
 import bcrypt from 'bcrypt'
 import { application } from 'express';
-import fs from "fs";
+// import fs from "fs";
 
 import { v2 as cloudinary } from 'cloudinary';
 
@@ -16,21 +16,20 @@ cloudinary.config({
 // Upload an image
 const imageupload = async (localpath)=>{
 try {
-    const uploadResult = await cloudinary.uploader
-    .upload(
+    const uploadResult = await cloudinary.uploader.upload(
         localpath, {
             resource_type: 'auto',
         }
         
     )
-    fs.unlinkSync(localpath);
+    // fs.unlinkSync(localpath);
     console.log(uploadResult);
     
   
     
 } catch (error) {
     console.log(error);
-    fs.unlinkSync(localpath);
+    // fs.unlinkSync(localpath);
 
 
     
@@ -92,41 +91,38 @@ res.status(200).json({
     accessToken:generateAccessToken(checkUser),
     refreshToken:generateRefreshToken(checkUser)
 })
-
 }
-
-
-
-const uploadimage = async (req,res)=>{
+const uploadimage = async (req, res) => {
     if (!req.file)
-        return res.status(400).json({
-          message: "no image file uploaded",
-        });
-    
-      try {
-        const uploadResult = await imageupload(req.file.path);
-    
-        if (!uploadResult)
-          return res
-            .status(500)
-            .json({ message: "error occured while uploading image" });
-    
-        res.json({
-          message: "image uploaded successfully",
-          url: uploadResult,
-        });
-      } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "error occured while uploading image" });
-      }
-    // if(!localpath)return res.status(404).json({
-    //     massage:"please provide image"
-    // })
-    // imageupload(localpath)
-    // res.status(200).json({
-    //     massage:"image upload successfuly"
-    // })
-    
+      return res.status(400).json({
+        message: "no image file uploaded",
+      });
+  
+    try {
+      const uploadResult = await imageupload(req.file.path);
+  
+      if (!uploadResult)
+        return res
+          .status(500)
+          .json({ message: "error occured while uploading image" });
+  
+      res.json({
+        message: "image uploaded successfully",
+        url: uploadResult,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "error occured while uploading image" });
+    }
+
+
+
+
+
+
 }
 
-export {generateAccessToken,generateRefreshToken,register,loginUser ,uploadimage}
+
+
+
+export {generateAccessToken,generateRefreshToken,register,loginUser,uploadimage}
