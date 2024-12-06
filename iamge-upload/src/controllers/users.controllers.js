@@ -104,7 +104,7 @@ const uploadimage = async (req,res)=>{
         });
     
       try {
-        const uploadResult = await uploadImageToCloudinary(req.file.path);
+        const uploadResult = await imageupload(req.file.path);
     
         if (!uploadResult)
           return res
