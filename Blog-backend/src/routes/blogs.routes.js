@@ -1,33 +1,14 @@
 import express from "express";
-const router = express.Router();
-import usermodels from "../models/user.models.js";
-import bcrypt from "bcrypt"
+import registeruser from "../controllers/blogs.controllers.js";
 
+const router = express.Router();
 
 
 router.get('/',(req,res)=>{
     res.send("My Blogs")
 })
 
-router.post('/register', async (req,res)=>{
-const {name,email,password} = req.body
+router.post('/register', registeruser);
 
-if(!name || !email || !password){
-    return res.status(400).json({error:"SOMETHING IS MISSING"})
 
-}
-
-const hashpasword =  await bcrypt.hash(password,10)
-
-const user = usermodels.create({
-    name,
-    email,
-    password : hashpasword   
-}) 
-res.status(201).json({
-    massage:"user created successfully",
-    success:true,
-    user
-})
-
-})
+export default router
