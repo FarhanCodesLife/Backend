@@ -17,13 +17,10 @@ const userschema = new mongoose.Schema({
         required:true,
     },
    
-    createdAt:{
-        type:Date,
-        default:Date.now,
-    }
+    
 },{
 
-    timestemps:true
+    timestamps:true
 }
 )
 

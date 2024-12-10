@@ -1,5 +1,5 @@
 import express from "express";
-import registeruser from "../controllers/blogs.controllers.js";
+import {registeruser, loginuser } from "../controllers/blogs.controllers.js";
 
 const router = express.Router();
 
@@ -9,6 +9,7 @@ router.get('/',(req,res)=>{
 })
 
 router.post('/register', registeruser);
+router.post('/login', loginuser);
 
 
 export default router
