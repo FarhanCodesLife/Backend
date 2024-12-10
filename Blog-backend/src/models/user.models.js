@@ -21,8 +21,10 @@ const userschema = new mongoose.Schema({
         type:Date,
         default:Date.now,
     }
-},
-timestemps=true
+},{
+
+    timestemps:true
+}
 )
 
 const usermodels = mongoose.model("user",userschema)
