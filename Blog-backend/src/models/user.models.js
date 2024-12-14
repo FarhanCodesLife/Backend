@@ -16,6 +16,7 @@ const userschema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    blogs:[{type:mongoose.Schema.Types.ObjectId,ref:"post"}]
    
     
 },{

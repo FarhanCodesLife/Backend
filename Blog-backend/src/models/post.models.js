@@ -13,15 +13,13 @@ const postschema = new mongoose.Schema({
     author:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"user",
-        required:true,
     },
-    createdAt:{
-        type:Date,
-        default:Date.now,
-    }
+   
 
-},
-timestemps=true
+},{
+
+    timestemps:true
+}
 )
 
 const postmodels = mongoose.model("post",postschema)
