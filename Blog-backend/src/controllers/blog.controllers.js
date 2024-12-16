@@ -35,4 +35,18 @@ const createBlog = async (req,res)=>{
 }
 
 
-export default createBlog
+const allblogs = async(req,res)=>{
+
+    const page = req.query.page || 1
+    const limit = req.query.limit || 2
+
+    const skip = (page-1)*limit
+
+    const blogs =await postmodels.find({}).skip(skip).limit(limit)
+    res.status(200).json(blogs)
+
+
+}
+
+
+export {allblogs,createBlog}
