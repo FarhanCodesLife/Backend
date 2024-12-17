@@ -38,35 +38,64 @@ import Post from "../modules/post.module.js";
 };
 
 
-const addlike = async (req, res) => {
-    const { postId,Id } = req.body;
+const likeandcommets = async (req, res) => {
+    const {postId} = req.params;
+    const {action,Id ,usercomment} = req.body;
+try{
+
+    
     if (!mongoose.Types.ObjectId.isValid(postId)||!mongoose.Types.ObjectId.isValid(Id)) {
-      return res.status(400).json({ error: "Not valid Id" });
+        return res.status(400).json({ error: "Not valid Id" });
     }
     const post = await Post.findById(postId);
 
     if (!post) {
-      return res.status(404).json({ error: "Post not found!" });
+        return res.status(404).json({ error: "Post not found!" });
     }
+    
+if(action == "like"){
+
     
     // Check if the user already liked the post
     const likeIndex = post.likes.indexOf(Id);
     
     if (likeIndex === -1) {
-      // If Id is not in the likes array, add it
-      post.likes.push(Id);
-      await post.save();
-      return res.status(200).json({ message: "Like added successfully", likes: post.likes });
+        // If Id is not in the likes array, add it
+        post.likes.push(Id);
+        
+        await post.save();
+        return res.status(200).json({ message: "Like added successfully", likes:post.likes.length,
+
+         });
     } else {
-      // If Id is already in the likes array, remove it
-      post.likes.splice(likeIndex, 1);
-      await post.save();
-      return res.status(200).json({ message: "Like removed successfully", likes: post.likes });
+        // If Id is already in the likes array, remove it
+        post.likes.splice(likeIndex, 1);
+        await post.save();
+        return res.status(200).json({ message: "Like removed successfully", likes: post.likes.length,});
     }
-    
-    
-   
-  };
+}
+
+
+if(action == "comment"){
+    if(!usercomment){
+        return res.status(400).json({error:"comment is requied"})
+    }
+    post.comments.push({comment:usercomment,user:Id});
+    await post.save();
+    return res.status(200).json({ message: "Comment added successfully",Commits:post.comments});
+};
+
+res.status(400).json({ error: "Invalid action" });
+
+}
+
+catch (error) {
+    res.status(500).json({ error: error.message });
+}
+};
+
+
+
 
 
 const allPosts = async (req, res) => {
@@ -98,4 +127,4 @@ const allPosts = async (req, res) => {
     }
 };
 
-export {createPost,allPosts,addlike}
+export {createPost,allPosts,likeandcommets}

@@ -1,6 +1,6 @@
  import express from "express";
  import  {registerUser,loginuserUser,} from "../controllers/user.controllers.js";
-import { addlike, allPosts, createPost } from "../controllers/post.controllers.js";
+import {   allPosts, createPost, likeandcommets } from "../controllers/post.controllers.js";
  
  const router = express.Router();
  
@@ -8,6 +8,6 @@ import { addlike, allPosts, createPost } from "../controllers/post.controllers.j
  router.post("/loginuser", loginuserUser);
  router.post("/createpost", createPost);
  router.get("/posts", allPosts);
- router.post("/posts", addlike);
+ router.put("/posts/:postId", likeandcommets );
  
  export default router;
