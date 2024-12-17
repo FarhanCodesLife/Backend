@@ -38,7 +38,7 @@ import Post from "../modules/post.module.js";
 };
 
 
-const likeandcommets = async (req, res) => {
+const editlikeandcommets = async (req, res) => {
     const {postId} = req.params;
     const {action,Id ,usercomment} = req.body;
 try{
@@ -113,6 +113,24 @@ catch (error) {
 };
 
 
+const deletepost = async (req,res)=>{
+    const {postId} = req.params
+    if(!mongoose.Types.ObjectId.isValid(postId)){return res.status(400).json({
+        error:"not valid Id"
+    })}
+try{
+
+    const deletepost = await Post.findByIdAndDelete(postId)
+    res.status(200).json({massage:"post deleted succssfuly"})
+}
+catch(error){
+    res.status(400).json({error:error.massage})
+}
+
+
+}
+
+
 
 
 
@@ -145,4 +163,4 @@ const allPosts = async (req, res) => {
     }
 };
 
-export {createPost,allPosts,likeandcommets}
+export {createPost,allPosts,editlikeandcommets,deletepost}
