@@ -4,14 +4,14 @@ const postshema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
-        trim: true
+        // trim: true
     },
     description: {
         type: String,
         required: true,
-        trim: true
+        // trim: true
     },
-    author: {
+    autorId: {
         type:mongoose.Schema.Types.ObjectId,
         ref: "User",
     },

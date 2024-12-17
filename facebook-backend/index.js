@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 // import postRoutes from "./routes/posts.js";
 import connectDB from "./src/db/index.js";
+import router from "./src/routes/user.route.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -14,7 +15,7 @@ const app = express();
 app.use(express.json());
 // app.use(cors());
 
-// app.use("/posts", postRoutes);
+app.use("/api/v1", router);
 
 app.get("/", (req, res) => {
     res.send("Hello World!");
