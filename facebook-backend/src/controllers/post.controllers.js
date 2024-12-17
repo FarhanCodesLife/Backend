@@ -52,6 +52,24 @@ try{
     if (!post) {
         return res.status(404).json({ error: "Post not found!" });
     }
+
+if(action == "edit"){
+    const {title,description,Id} = req.body;
+    if(!title || !description){
+        return res.status(400).json({error:"title and descriptio is requied"})
+        
+    }
+    if(Id != post.autorId){return res.status(400).json({
+            error:"You are not authorized to edit this post"
+        })
+    }
+    post.title = title
+    post.description = description
+    post.save()
+    return res.status(201).json({massage:"post edite successfuly",post})
+}
+
+
     
 if(action == "like"){
 
