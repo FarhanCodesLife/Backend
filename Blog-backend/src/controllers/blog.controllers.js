@@ -5,7 +5,7 @@ import usermodels from "../models/user.models.js";
 
 const createBlog = async (req,res)=>{
     const {title,content,authorId} = req.body
-    if(!title || !content){
+    if(!title || !content || !authorId){
         return res.status(400).json({error:"SOMETHING IS MISSING in Body"})
     }
     try {
@@ -38,12 +38,12 @@ const createBlog = async (req,res)=>{
 
 const allblogs = async(req,res)=>{
 
-    const page = req.query.page || 1
-    const limit = req.query.limit || 10
+    // const page = req.query.page || 1
+    // const limit = req.query.limit || 10
 
-    const skip = (page-1)*limit
+    // const skip = (page-1)*limit
 
-    const blogs =await postmodels.find({}).skip(skip).limit(limit)
+    const blogs =await postmodels.find({})
     res.status(200).json(blogs)
 
 

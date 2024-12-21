@@ -60,9 +60,9 @@ const loginuser = async (req,res)=>{
 
     
         
-        const hashpasword =  await bcrypt.compare(password,userexist.password)
+        const isValidPassword =  await bcrypt.compare(password,userexist.password)
         
-        if(!hashpasword)return res.status(400).json({error:"Something is wrong"})
+        if(!isValidPassword)return res.status(400).json({error:"Something is wrong"})
             
             
             const accessToken = generateAccessToken(userexist)
