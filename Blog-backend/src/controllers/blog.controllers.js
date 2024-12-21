@@ -26,6 +26,7 @@ const createBlog = async (req,res)=>{
         res.status(201).json({
             massage:"blog created successfully",
             success:true,
+            blog
         })
         
     } catch (error) {
