@@ -2,12 +2,14 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./src/db/index.js";
 import router from "./src/routes/blogs.routes.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const port = process.env.PORT || 3000;
 dotenv.config();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/user", router);
 
