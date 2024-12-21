@@ -1,6 +1,6 @@
-import postmodels from "../models/post.models";
 import mongoose from "mongoose";
-import commentmodels from "../models/comments.models";
+import postmodels from "../models/post.models.js";
+import commentmodels from "../models/comments.models.js";
 
 export const createcomment = async (req, res) => {
     const { comment, authorId, postId } = req.body;
@@ -10,17 +10,17 @@ export const createcomment = async (req, res) => {
     }
 
     try {
-        const post = await postmodels.findByIdandUpdate(postId,{
+        const post = await postmodels.findByIdAndUpdate(postId,{
             $push:{comments:{comment,authorId}}
         });
         if (!post) {
-            return res.status(400).json({ error: "user does not exist" });
+            return res.status(400).json({ error: "post does not exist" });
         }
 
-        const comment = await commentmodels.create({
-            comment,
-            authorId,
-            postId,
+        res.status(201).json({
+            massage: "comment created successfully",
+            success: true,
+            post,
         });
     }
 

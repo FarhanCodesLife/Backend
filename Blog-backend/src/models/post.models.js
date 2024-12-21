@@ -18,15 +18,13 @@ const postschema = new mongoose.Schema({
     type:mongoose.Schema.Types.ObjectId,
     ref:"likes"
    }],
-   comment:[[{
+   comments:[{comment:{
     type:String,
-    
-
-    
-   },{
+   },
+   authorId:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"comments"
-   }]],
+   }}],
 
 },{
 
