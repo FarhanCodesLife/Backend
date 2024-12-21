@@ -9,12 +9,12 @@ const [data,setdata] = useState([])
       
       const blogs = await fetch("http://localhost:4000/api/user/allblogs")
       .then((res)=>res.json())
-      .then((data)=>{setdata(data)}).then((data)=>console.log(data) )
+      .then((data)=>{setdata(data)} )
     }
   
     datafetch()
   }
- ,[]) 
+ ,[data]) 
 // console.log(data);
 
   const addlike = (postId,autorId)=>{
