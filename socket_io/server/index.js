@@ -13,7 +13,7 @@ const io = new Server(server, {
 })
 
 io.on("connection", (socket) => {
-    console.log("a user connected")
+    console.log("a user connected",socket.id)
     socket.on("disconnect", () => {
         console.log("user disconnected")
     })
@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
     res.send("hello world")
 })
 
-server.listen(3000, () => {
-    console.log("listening on *:3000")
+server.listen(8000, () => {
+    console.log("listening on *:8000")
 })
 

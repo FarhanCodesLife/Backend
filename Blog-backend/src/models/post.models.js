@@ -14,7 +14,10 @@ const postschema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"user",
     },
-   
+   like:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"likes"
+   }]
 
 },{
 
